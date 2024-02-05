@@ -1,4 +1,7 @@
+'use client';
+import classNames from 'classnames';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { FaFileCircleExclamation } from 'react-icons/fa6';
 
 const Navbar = () => {
@@ -20,13 +23,18 @@ const NavLinks = () => {
     { label: 'Issues Page', href: '/issues/list' },
   ];
 
+  const currentPath = usePathname();
+
   return (
     <ul className='flex px-6 space-x-5'>
       {links.map((link) => (
         <li key={link.label}>
           <Link
             href={link.href}
-            className='hover:transition-colors hover:text-zinc-500'
+            className={classNames({
+              'nav-link': true,
+              '!text-zinc-900': link.href === currentPath,
+            })}
           >
             {link.label}
           </Link>
