@@ -1,8 +1,10 @@
+import { Button } from '@radix-ui/themes';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <div className='flex flex-col items-center justify-between p-24'>
       <p>Home PAGE!</p>
-    </main>
+      <Button variant='surface'>New Issue</Button>
+    </div>
   );
 }
