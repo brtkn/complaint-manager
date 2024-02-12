@@ -30,7 +30,7 @@ const NewIssuePage = () => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await axios.post('/api/issues', data);
-      router.push('/issues');
+      router.push('/issues/list');
       setSubmitting(true);
     } catch (error) {
       setError('An unexpected error occurred.');
