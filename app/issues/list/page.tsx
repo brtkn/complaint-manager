@@ -1,14 +1,12 @@
-import { Table } from '@radix-ui/themes';
+import { CustomLink } from '@/app/component';
 import prisma from '@/prisma/client';
-import React from 'react';
+import { Table } from '@radix-ui/themes';
 import IssueStatusBage from '../../component/IssueStatusBage';
-import delay from 'delay';
 import IssueActions from '../IssueActions';
-import CustomLink from '@/app/component/CustomLink';
 
 const IssuesPage = async () => {
   const issues = await prisma?.issue.findMany();
-  await delay(1000);
+
   return (
     <>
       <IssueActions />

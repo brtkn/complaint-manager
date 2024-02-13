@@ -1,9 +1,5 @@
-import IssueStatusBage from '@/app/component/IssueStatusBage';
-import { Heading, Flex, Card, Box, Text } from '@radix-ui/themes';
-import React from 'react';
-import Markdown from 'react-markdown';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
+import { Box, Card, Flex } from '@radix-ui/themes';
+import { Skeleton } from '@/app/component';
 
 const LoadingIssueDetailPage = () => {
   return (
