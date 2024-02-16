@@ -38,13 +38,14 @@ const IssueForm = ({ issue }: Props) => {
       if (issue) {
         await axios.patch('/api/issues/' + issue.id, data);
         router.push('/issues/list');
+        router.refresh();
       } else {
         await axios.post('/api/issues', data);
         router.push('/issues/list');
       }
     } catch (error) {
-      setError('An unexpected error occurred.');
       setSubmitting(false);
+      setError('An unexpected error occurred.');
     }
   });
 
