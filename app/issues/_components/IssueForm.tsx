@@ -20,6 +20,8 @@ interface Props {
 }
 
 const IssueForm = ({ issue }: Props) => {
+  const router = useRouter();
+
   const {
     register,
     control,
@@ -28,7 +30,6 @@ const IssueForm = ({ issue }: Props) => {
   } = useForm<IssueFormData>({
     resolver: zodResolver(issueSchema),
   });
-  const router = useRouter();
   const [error, setError] = useState('');
   const [isSubmitting, setSubmitting] = useState(false);
 
