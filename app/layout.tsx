@@ -4,7 +4,7 @@ import './globals.css';
 import '@radix-ui/themes/styles.css';
 import './theme.config.css';
 import Navbar from './Navbar';
-import { Theme } from '@radix-ui/themes';
+import { Theme, Container } from '@radix-ui/themes';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -23,7 +23,9 @@ export default function RootLayout({
       <body className={inter.variable}>
         <Theme>
           <Navbar />
-          <main className='p-5'>{children}</main>
+          <main className='p-5'>
+            <Container>{children}</Container>
+          </main>
         </Theme>
       </body>
     </html>
