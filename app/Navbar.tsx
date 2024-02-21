@@ -1,5 +1,7 @@
 'use client';
+import { Box } from '@radix-ui/themes';
 import classNames from 'classnames';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaFileCircleExclamation } from 'react-icons/fa6';
@@ -18,6 +20,7 @@ const Navbar = () => {
 };
 
 const NavLinks = () => {
+  const { status, data: session } = useSession();
   const links = [
     { label: 'Dashboard', href: '/' },
     { label: 'Issues Page', href: '/issues/list' },
@@ -26,21 +29,31 @@ const NavLinks = () => {
   const currentPath = usePathname();
 
   return (
-    <ul className='flex px-6 space-x-5'>
-      {links.map((link) => (
-        <li key={link.label}>
-          <Link
-            href={link.href}
-            className={classNames({
-              'nav-link': true,
-              '!text-zinc-900': link.href === currentPath,
-            })}
-          >
-            {link.label}
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className='flex px-6 space-x-5'>
+        {links.map((link) => (
+          <li key={link.label}>
+            <Link
+              href={link.href}
+              className={classNames({
+                'nav-link': true,
+                '!text-zinc-900': link.href === currentPath,
+              })}
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Box>
+        {status === 'authenticated' && (
+          <Link href='/api/auth/signout'>Log out</Link>
+        )}
+        {status === 'unauthenticated' && (
+          <Link href='/api/auth/signin'>Login</Link>
+        )}
+      </Box>
+    </>
   );
 };
 
