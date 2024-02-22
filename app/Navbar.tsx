@@ -1,15 +1,13 @@
 'use client';
+import * as Avatar from '@radix-ui/react-avatar';
 import { Box, Container, DropdownMenu, Flex, Text } from '@radix-ui/themes';
 import classNames from 'classnames';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaFileCircleExclamation } from 'react-icons/fa6';
-import * as Avatar from '@radix-ui/react-avatar';
 
 const Navbar = () => {
-  const { status, data: session } = useSession();
-  console.log(session?.user!.image!);
   return (
     <nav className='flex space-x-6 border-b mb-5 px-5 h-14 items-center'>
       <Container>
@@ -20,39 +18,7 @@ const Navbar = () => {
             </Link>
             <NavLinks />
           </Flex>
-          <Box>
-            {status === 'authenticated' && (
-              <DropdownMenu.Root>
-                <DropdownMenu.Trigger>
-                  <Avatar.Root>
-                    <Avatar.Image
-                      src={session.user!.image!}
-                      className='cursor-pointer rounded-full h-10 w-10'
-                    />
-                    <Avatar.Fallback
-                      className='AvatarFallback cursor-pointer'
-                      delayMs={1000}
-                    >
-                      ?
-                    </Avatar.Fallback>
-                  </Avatar.Root>
-                </DropdownMenu.Trigger>
-                <DropdownMenu.Content>
-                  <DropdownMenu.Label>
-                    <Text size='2'>{session.user!.email}</Text>
-                  </DropdownMenu.Label>
-                  <DropdownMenu.Item>
-                    <Link href='/api/auth/signout'>Log out</Link>
-                  </DropdownMenu.Item>
-                </DropdownMenu.Content>
-              </DropdownMenu.Root>
-            )}
-            {status === 'unauthenticated' && (
-              <Link href='/api/auth/signin'>
-                <Text>Login</Text>
-              </Link>
-            )}
-          </Box>
+          <AuthStatus />
         </Flex>
       </Container>
     </nav>
@@ -85,6 +51,49 @@ const NavLinks = () => {
         ))}
       </ul>
     </>
+  );
+};
+
+const AuthStatus = () => {
+  const { status, data: session } = useSession();
+
+  if (status === 'loading') return null;
+  if (status === 'unauthenticated')
+    return (
+      <Link href='/api/auth/signin'>
+        <Text className='nav-link'>Login</Text>
+      </Link>
+    );
+
+  return (
+    <Box>
+      {status === 'authenticated' && (
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Avatar.Root>
+              <Avatar.Image
+                src={session.user!.image!}
+                className='cursor-pointer rounded-full h-10 w-10'
+              />
+              <Avatar.Fallback
+                className='AvatarFallback cursor-pointer'
+                delayMs={1000}
+              >
+                ?
+              </Avatar.Fallback>
+            </Avatar.Root>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.Label>
+              <Text size='2'>{session.user!.email}</Text>
+            </DropdownMenu.Label>
+            <DropdownMenu.Item>
+              <Link href='/api/auth/signout'>Log out</Link>
+            </DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+      )}
+    </Box>
   );
 };
 
