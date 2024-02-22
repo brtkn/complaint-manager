@@ -1,21 +1,15 @@
 'use client';
-import {
-  Avatar,
-  Box,
-  Container,
-  DropdownMenu,
-  Flex,
-  Text,
-} from '@radix-ui/themes';
+import { Box, Container, DropdownMenu, Flex, Text } from '@radix-ui/themes';
 import classNames from 'classnames';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaFileCircleExclamation } from 'react-icons/fa6';
+import * as Avatar from '@radix-ui/react-avatar';
 
 const Navbar = () => {
   const { status, data: session } = useSession();
-
+  console.log(session?.user!.image!);
   return (
     <nav className='flex space-x-6 border-b mb-5 px-5 h-14 items-center'>
       <Container>
@@ -30,22 +24,25 @@ const Navbar = () => {
             {status === 'authenticated' && (
               <DropdownMenu.Root>
                 <DropdownMenu.Trigger>
-                  <Avatar
-                    fallback='?'
-                    size='2'
-                    radius='full'
-                    src={session.user!.image!}
-                    className='cursor-pointer'
-                  />
+                  <Avatar.Root>
+                    <Avatar.Image
+                      src={session.user!.image!}
+                      className='cursor-pointer rounded-full h-10 w-10'
+                    />
+                    <Avatar.Fallback
+                      className='AvatarFallback cursor-pointer'
+                      delayMs={1000}
+                    >
+                      ?
+                    </Avatar.Fallback>
+                  </Avatar.Root>
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content>
                   <DropdownMenu.Label>
                     <Text size='2'>{session.user!.email}</Text>
                   </DropdownMenu.Label>
                   <DropdownMenu.Item>
-                    <Link href='/api/auth/signout'>
-                      <Text>Log out</Text>
-                    </Link>
+                    <Link href='/api/auth/signout'>Log out</Link>
                   </DropdownMenu.Item>
                 </DropdownMenu.Content>
               </DropdownMenu.Root>
