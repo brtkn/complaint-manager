@@ -5,6 +5,7 @@ import LatestIssues from './LatestIssues';
 import { IssueQuery } from './issues/list/IssueTable';
 import IssuesPage from './issues/list/page';
 import prisma from '@/prisma/client';
+import { Metadata } from 'next';
 
 interface Props {
   searchParams: IssueQuery;
@@ -27,3 +28,8 @@ export default async function Home({ searchParams }: Props) {
     </Grid>
   );
 }
+
+export const metadata: Metadata = {
+  title: 'Complaint Manager - Dashboard',
+  description: 'View a summary of project issues',
+};
