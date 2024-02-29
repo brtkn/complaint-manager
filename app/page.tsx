@@ -1,3 +1,4 @@
+import IssueChart from './IssueChart';
 import IssueSummary from './IssueSummary';
 import LatestIssues from './LatestIssues';
 import { IssueQuery } from './issues/list/IssueTable';
@@ -18,7 +19,7 @@ export default async function Home({ searchParams }: Props) {
   return (
     <>
       <LatestIssues />
-      <IssueSummary open={open} closed={closed} inProgress={inProgress} />
+      <IssueChart open={open} closed={closed} inProgress={inProgress} />
     </>
   );
 }
