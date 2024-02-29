@@ -33,3 +33,5 @@ export const metadata: Metadata = {
   title: 'Complaint Manager - Dashboard',
   description: 'View a summary of project issues',
 };
+
+export const dynamic = 'force-dynamic';
