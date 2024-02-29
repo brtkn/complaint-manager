@@ -1,18 +1,14 @@
-import Pagination from './component/Pagination';
+import { IssueQuery } from './issues/list/IssueTable';
 import IssuesPage from './issues/list/page';
 
-export default function Home({
-  searchParams,
-}: {
-  searchParams: { page: string };
-}) {
+interface Props {
+  searchParams: IssueQuery;
+}
+
+export default function Home({ searchParams }: Props) {
   return (
     <>
-      <Pagination
-        itemCount={100}
-        pageSize={10}
-        currentPage={parseInt(searchParams.page)}
-      />
+      <IssuesPage searchParams={searchParams} />
     </>
   );
 }
