@@ -1,3 +1,4 @@
+import LatestIssues from './LatestIssues';
 import { IssueQuery } from './issues/list/IssueTable';
 import IssuesPage from './issues/list/page';
 
@@ -8,7 +9,7 @@ interface Props {
 export default function Home({ searchParams }: Props) {
   return (
     <>
-      <IssuesPage searchParams={searchParams} />
+      <LatestIssues />
     </>
   );
 }
