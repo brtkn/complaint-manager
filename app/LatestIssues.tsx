@@ -7,7 +7,7 @@ import { IssueStatusBage } from './component';
 const LatestIssues = async () => {
   const issues = await prisma?.issue.findMany({
     orderBy: { createdAt: 'desc' },
-    take: 5,
+    take: 7,
     include: { assignedToUser: true },
   });
   return (
